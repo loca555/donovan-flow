@@ -95,7 +95,6 @@ canvas { display: block; cursor: grab; }
   <div class="leg-item"><span class="leg-dot" style="background:#aa44ff"></span> Kraken (CEX)</div>
   <div class="leg-item"><span class="leg-dot" style="background:#22aacc"></span> Стейкинг / DeFi</div>
   <div class="leg-item"><span class="leg-dot" style="background:#ffdd44"></span> Контакты Донована</div>
-  <div class="leg-item"><span class="leg-dot" style="background:#ff66cc"></span> Связанный сотрудник NF</div>
 </div>
 
 <div id="tooltip"></div>
@@ -104,8 +103,7 @@ canvas { display: block; cursor: grab; }
 <div id="info">
   <b style="color:#ff4444">Christopher Donovan</b> — 4 кошелька | NF → Донован: <b>~1.43M NEAR</b> | Донован → Binance (через депозитные адреса): <b>~2.6M NEAR</b><br>
   Активность: авг 2022 — янв 2026 | cjpd → malvolio ротация окт 2024 | Литературные псевдонимы: Шекспир, Мэтьюрин, Булгаков<br>
-  <span style="color:#aa44ff">eb3c2bfd</span> = <b>Kraken</b> (Pikespeak: Kraken/CEX/WHALE, $10.3M) — Донован получает 100K от Kraken на melmoth<br>
-  <span style="color:#bb3388">minibluemerle.near</span> = сотрудник NF (lockup 6.4K, 4y вестинг) — создал кошельки контактов Донована, вывод через Binance + Coinbase
+  <span style="color:#aa44ff">eb3c2bfd</span> = <b>Kraken</b> (Pikespeak: Kraken/CEX/WHALE, $10.3M) — Донован получает 100K от Kraken на melmoth
 </div>
 
 <div id="timeline"></div>
@@ -144,12 +142,10 @@ function resize() {
 const GROUPS_DARK = {
   NF: '#4488ff', DONOVAN: '#ff4444', PROXY: '#ff8800',
   BINANCE: '#44dd44', HUB: '#aa44ff', STAKING: '#22aacc', CONTACT: '#ffdd44',
-  SUSPECT: '#ff66cc',
 };
 const GROUPS_LIGHT = {
   NF: '#2255cc', DONOVAN: '#cc2222', PROXY: '#cc6600',
   BINANCE: '#228833', HUB: '#7722cc', STAKING: '#117799', CONTACT: '#aa8800',
-  SUSPECT: '#bb3388',
 };
 let GROUPS = GROUPS_LIGHT;
 function updateGroups() { GROUPS = isDark ? GROUPS_DARK : GROUPS_LIGHT; }
@@ -178,10 +174,6 @@ const ADDRESSES = {
   'lowsalt': 'lowsalt1829.near',
   '740ec89f': '740ec89f0a036041640b17799e2cc2d56bdec5882854fa20e992a0bea8c91f09',
   '281a7978': '281a7978e9a658981e7a2fbea96fff2e96d3e4c6d63a092e783ebc3ba695fea6',
-  'minibluemerle': 'minibluemerle.near',
-  'lockup-mbm': '135f2851838740688af7c275d0f1c08170f752d5.lockup.near',
-  'f8aeb20e': 'f8aeb20e0ac3e56e863926110f34b4359cf009a84391eef6c6d1dbf3e1a882e7',
-  'coinbase-eth': '0x606b83bf086C7332A843cf32cb6aa7E05A68290B',
 };
 
 // === УЗЛЫ ===
@@ -225,12 +217,6 @@ N('longlace', 'longlace5171\n4K', 'CONTACT', 0.14, 0.93, 'Получил 4K от
 N('lowsalt', 'lowsalt1829\n3K', 'CONTACT', 0.40, 0.93, 'Получил 3K от melmoth\n1 транзакция');
 N('740ec89f', '740ec89f\n1K', 'CONTACT', 0.20, 0.85, 'Получил 1K от malvolio\n2 транзакции');
 N('281a7978', '281a7978\n1K', 'CONTACT', 0.14, 0.78, 'Получил 1K от malvolio\n2 транзакции');
-
-// minibluemerle.near — связанный сотрудник NF (нижняя зона)
-N('lockup-mbm', 'NF Lockup\n135f2851', 'NF', 0.06, 0.50, 'lockup.near factory\nВладелец: minibluemerle.near\nВестинг: 6,454 NEAR за 4 года (2024-2028)\nВыведено: 4,028 NEAR');
-N('minibluemerle', 'minibluemerle.near\n(сотрудник NF)', 'SUSPECT', 0.20, 0.50, 'Сотрудник NF с lockup-вестингом\nСоздал lowsalt1829 и longlace5171\nЛично связан с Донованом\nИмя = порода собаки (блю-мерль)');
-N('f8aeb20e', 'Транзит\nf8aeb20e', 'PROXY', 0.36, 0.50, 'Транзитный кошелёк minibluemerle\nСоздан dafam.near\n3,833 NEAR → 4 downstream-хаба\nВсе ведут на Binance/Kraken');
-N('coinbase-eth', 'Coinbase\n(ETH кэшаут)', 'BINANCE', 0.52, 0.50, 'Ethereum 0x606b83bf\nВсе USDC → Coinbase 10 (биржа)\nОборот ~$75-80K USDC\nБридж 266 USDC от minibluemerle');
 
 // Вычисление объёма через каждый узел (вызывается после определения рёбер)
 let volumesComputed = false;
@@ -315,14 +301,7 @@ E('melmoth', 'lowsalt', 3000, 1, 7, '2025-02');
 E('malvolio', '740ec89f', 1010, 2, 7, '2026-02');
 E('malvolio', '281a7978', 1005, 2, 7, '2026-02');
 
-// Шаг 8: minibluemerle.near — связанный сотрудник NF
-E('lockup-mbm', 'minibluemerle', 4028, 16, 8, '2024-03 → 2026-02');
-E('minibluemerle', 'f8aeb20e', 3833, 17, 8, '2024-09 → 2026-02');
-E('minibluemerle', 'coinbase-eth', 266, 1, 8, '2024-06');
-E('minibluemerle', 'lowsalt', 0.1, 1, 8, '2025-02 (создание)');
-E('minibluemerle', 'longlace', 0.1, 1, 8, '2025-07 (создание)');
-
-const MAX_STEP = 8;
+const MAX_STEP = 7;
 const STEP_LABELS = {
   1: 'NF платит Доновану (~1.43M NEAR)',
   2: 'Донован → депозитные адреса Binance (~2.75M)',
@@ -331,7 +310,6 @@ const STEP_LABELS = {
   5: 'Между кошельками: melmoth → profwoland (2K)',
   6: 'Донован → Стейкинг / DeFi (321K)',
   7: 'Донован → Контакты (13K)',
-  8: 'minibluemerle.near — сотрудник NF, связан с Донованом',
 };
 
 let currentStep = 1;
